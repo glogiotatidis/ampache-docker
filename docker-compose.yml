@@ -1,0 +1,18 @@
+db:
+  image: mysql
+  environment:
+    - MYSQL_RANDOM_ROOT_PASSWORD=True
+    - MYSQL_USER=ampache
+    - MYSQL_PASSWORD=music
+    - MYSQL_DATABASE=ampache
+  volumes:
+    - mysqldata:/var/lib/mysql
+php:
+  build: php
+  links:
+    - db:db
+  ports:
+    - 8000:80
+  volumes:
+    - ./music:/data
+    - ./config:/var/www/html/config
